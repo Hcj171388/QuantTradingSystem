@@ -3,30 +3,22 @@ package com.quanttrading.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.quanttrading.databinding.ActivityMainBinding
 import com.quanttrading.ui.fragment.AnalysisFragment
 import com.quanttrading.ui.fragment.BatchScreeningFragment
 import com.quanttrading.ui.fragment.StockSearchFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager: ViewPager2
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        tabLayout = findViewById(R.id.tabLayout)
-        viewPager = findViewById(R.id.viewPager)
-
-        setupViewPager()
-    }
-
-    private fun setupViewPager() {
-        viewPager.adapter = object : FragmentStateAdapter(this) {
+        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 3
 
             override fun createFragment(position: Int) = when (position) {
@@ -37,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "股票查询"
                 1 -> "量化分析"
