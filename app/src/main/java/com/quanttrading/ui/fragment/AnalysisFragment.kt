@@ -15,7 +15,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.quanttrading.R
 import com.quanttrading.data.api.ApiClient
-import com.quanttrading.data.repository.StockRepository
+import com.quanttrading.data.model.StockData
 import com.quanttrading.domain.analysis.QuantAnalyzer
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -28,7 +28,6 @@ class AnalysisFragment : Fragment() {
     private lateinit var factorsCard: MaterialCardView
     private lateinit var progressBar: CircularProgressIndicator
     
-    private val repository = StockRepository()
     private val analyzer = QuantAnalyzer()
     private val decimalFormat = DecimalFormat("0.00")
 
@@ -66,10 +65,12 @@ class AnalysisFragment : Fragment() {
         
         lifecycleScope.launch {
             try {
-                val stocks = repository.searchStock(keyword)
-                if (stocks.isSuccess && stocks.getOrNull()?.isNotEmpty() == true) {
-                    val stock = stocks.getOrNull()!!.first()
-                    performAnalysis(stock.secid, stock.name)
+                val response = ApiClient.stockApiService.searchStock(keyword)
+                val stocks = response.data?.stockList ?: emptyList()
+                
+                if (stocks.isNotEmpty()) {
+                    val stock = stocks.first()
+                    performAnalysis(stock)
                 } else {
                     Toast.makeText(requireContext(), "未找到股票", Toast.LENGTH_SHORT).show()
                     progressBar.visibility = View.GONE
@@ -81,15 +82,17 @@ class AnalysisFragment : Fragment() {
         }
     }
     
-    private fun performAnalysis(secid: String, name: String) {
+    private fun performAnalysis(stock: com.quanttrading.data.model.SearchStock) {
         lifecycleScope.launch {
             try {
-                val result = repository.getRealTimeStock(secid)
-                if (result.isSuccess) {
-                    val stockData = result.getOrNull()!!
-                    val mockHistorical = generateMockHistoricalData(stockData)
+                val secid = getSecid(stock.code)
+                val response = ApiClient.stockApiService.getRealTimeStock(secid)
+                val currentData = response.data
+                
+                if (currentData != null) {
+                    val mockHistorical = generateMockHistoricalData(currentData)
                     val analysisResult = analyzer.analyzeStock(mockHistorical)
-                    displayAnalysisResult(analysisResult, stockData)
+                    displayAnalysisResult(analysisResult, currentData)
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "分析失败：${e.message}", Toast.LENGTH_SHORT).show()
@@ -99,13 +102,21 @@ class AnalysisFragment : Fragment() {
         }
     }
     
-    private fun generateMockHistoricalData(current: com.quanttrading.data.model.StockDataDto): List<com.quanttrading.data.model.StockData> {
-        val list = mutableListOf<com.quanttrading.data.model.StockData>()
+    private fun getSecid(code: String): String {
+        return when {
+            code.startsWith("0") || code.startsWith("3") -> "0.$code"
+            code.startsWith("6") -> "1.$code"
+            else -> "1.$code"
+        }
+    }
+    
+    private fun generateMockHistoricalData(current: com.quanttrading.data.model.StockDataDto): List<StockData> {
+        val list = mutableListOf<StockData>()
         var price = current.price
         for (i in 0 until 60) {
             price = price * (1 + (Math.random() - 0.5) * 0.02)
             list.add(
-                com.quanttrading.data.model.StockData(
+                StockData(
                     code = current.code,
                     name = current.name,
                     price = price,
@@ -130,7 +141,9 @@ class AnalysisFragment : Fragment() {
         signalCard.visibility = View.VISIBLE
         factorsCard.visibility = View.VISIBLE
         
-        view?.findViewById<TextView>(R.id.signalText)?.apply {
+        val view = requireView()
+        
+        view.findViewById<TextView>(R.id.signalText)?.apply {
             text = when (result.signal) {
                 com.quanttrading.data.model.TradingSignal.STRONG_BUY -> "强烈买入"
                 com.quanttrading.data.model.TradingSignal.BUY -> "买入"
@@ -141,21 +154,21 @@ class AnalysisFragment : Fragment() {
             setTextColor(getSignalColor(result.signal))
         }
         
-        view?.findViewById<TextView>(R.id.upProbability)?.text = "${decimalFormat.format(result.upProbability)}%"
-        view?.findViewById<TextView>(R.id.downProbability)?.text = "${decimalFormat.format(result.downProbability)}%"
-        view?.findViewById<TextView>(R.id.confidence)?.text = "${decimalFormat.format(result.confidence)}%"
+        view.findViewById<TextView>(R.id.upProbability)?.text = "${decimalFormat.format(result.upProbability)}%"
+        view.findViewById<TextView>(R.id.downProbability)?.text = "${decimalFormat.format(result.downProbability)}%"
+        view.findViewById<TextView>(R.id.confidence)?.text = "${decimalFormat.format(result.confidence)}%"
         
-        displayFactors(result.factors)
+        displayFactors(view, result.factors)
     }
     
-    private fun displayFactors(factors: Map<String, Double>) {
-        view?.findViewById<TextView>(R.id.momentumFactor)?.text = decimalFormat.format(factors["momentum"] ?: 0.0)
-        view?.findViewById<TextView>(R.id.volatilityFactor)?.text = decimalFormat.format(factors["volatility"] ?: 0.0)
-        view?.findViewById<TextView>(R.id.trendFactor)?.text = decimalFormat.format(factors["trend"] ?: 0.0)
-        view?.findViewById<TextView>(R.id.rsiFactor)?.text = decimalFormat.format((factors["rsi"] ?: 0.0) * 100)
-        view?.findViewById<TextView>(R.id.macdFactor)?.text = decimalFormat.format(factors["macd"] ?: 0.0)
-        view?.findViewById<TextView>(R.id.kdjFactor)?.text = decimalFormat.format((factors["kdj"] ?: 0.0) * 100)
-        view?.findViewById<TextView>(R.id.volumeRatio)?.text = decimalFormat.format(factors["volumeRatio"] ?: 0.0)
+    private fun displayFactors(view: View, factors: Map<String, Double>) {
+        view.findViewById<TextView>(R.id.momentumFactor)?.text = decimalFormat.format(factors["momentum"] ?: 0.0)
+        view.findViewById<TextView>(R.id.volatilityFactor)?.text = decimalFormat.format(factors["volatility"] ?: 0.0)
+        view.findViewById<TextView>(R.id.trendFactor)?.text = decimalFormat.format(factors["trend"] ?: 0.0)
+        view.findViewById<TextView>(R.id.rsiFactor)?.text = "${decimalFormat.format((factors["rsi"] ?: 0.0) * 100)}"
+        view.findViewById<TextView>(R.id.macdFactor)?.text = decimalFormat.format(factors["macd"] ?: 0.0)
+        view.findViewById<TextView>(R.id.kdjFactor)?.text = "${decimalFormat.format((factors["kdj"] ?: 0.0) * 100)}"
+        view.findViewById<TextView>(R.id.volumeRatio)?.text = decimalFormat.format(factors["volumeRatio"] ?: 0.0)
     }
     
     private fun getSignalColor(signal: com.quanttrading.data.model.TradingSignal): Int {

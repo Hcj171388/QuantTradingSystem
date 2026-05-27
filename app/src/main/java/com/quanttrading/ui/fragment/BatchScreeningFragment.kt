@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.quanttrading.R
 
@@ -14,16 +15,10 @@ class BatchScreeningFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_stock_search, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_batch_screening, container, false)
         
-        view.findViewById<View>(R.id.stockCodeInput)?.visibility = View.GONE
-        view.findViewById<View>(R.id.searchButton)?.visibility = View.GONE
-        view.findViewById<View>(R.id.stockInfoCard)?.visibility = View.GONE
-        view.findViewById<View>(R.id.progressBar)?.visibility = View.GONE
-        view.findViewById<View>(R.id.errorText)?.visibility = View.GONE
+        view.findViewById<TextView>(R.id.featureName)?.text = "批量筛选"
+        
+        return view
     }
 }
