@@ -47,7 +47,7 @@ class AnalysisFragment : Fragment() {
         analyzeButton = view.findViewById(R.id.analyzeButton)
         signalCard = view.findViewById(R.id.signalCard)
         factorsCard = view.findViewById(R.id.factorsCard)
-        progressBar = view.findViewById(R.id.progressBar)
+        progressBar = view.findViewById(R.id.analysisProgressBar)
         
         analyzeButton.setOnClickListener {
             val input = stockCodeInput.text.toString().trim()
