@@ -48,6 +48,7 @@
             android:id="@+id/signalCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:visibility="gone">
 
             <LinearLayout
@@ -182,17 +183,16 @@
                     android:textStyle="bold"
                     android:textColor="#212121" />
 
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:columnCount="2"
-                    android:rowCount="7">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="动量因子"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -201,15 +201,23 @@
                         android:id="@+id/momentumFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="波动率"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -218,15 +226,23 @@
                         android:id="@+id/volatilityFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="趋势因子"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -235,15 +251,23 @@
                         android:id="@+id/trendFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="RSI"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -252,15 +276,23 @@
                         android:id="@+id/rsiFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="MACD"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -269,15 +301,23 @@
                         android:id="@+id/macdFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="KDJ"
                         android:textSize="12sp"
                         android:textColor="#757575" />
@@ -286,29 +326,41 @@
                         android:id="@+id/kdjFactor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textAlignment="textEnd" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
+                        android:layout_weight="1"
                         android:text="量比"
                         android:textSize="12sp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:visibility="gone" />
+                        android:textColor="#757575" />
 
-        <TextView
-            android:id="@+id/errorText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="#D32F2F"
-            android:textAlignment="center"
-            android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/volumeRatio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:textAlignment="textEnd" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
