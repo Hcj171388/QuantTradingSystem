@@ -297,27 +297,6 @@
                         android:layout_columnWeight="1"
                         android:text="量比"
                         android:textSize="12sp"
-                        android:textColor="#757575" />
-
-                    <TextView
-                        android:id="@+id/volumeRatio"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:textSize="14sp"
-                        android:textColor="#212121"
-                        android:textAlignment="textEnd" />
-
-                </GridLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <ProgressBar
-            android:id="@+id/analysisProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
             android:visibility="gone" />
