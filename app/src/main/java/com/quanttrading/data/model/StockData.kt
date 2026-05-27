@@ -42,3 +42,25 @@ data class StockInfo(
     val name: String,
     val secid: String
 )
+
+data class StockData(
+    val code: String,
+    val name: String,
+    val price: Double,
+    val changePercent: Double,
+    val volume: Long,
+    val turnover: Double,
+    val high: Double,
+    val low: Double,
+    val open: Double,
+    val close: Double,
+    val timestamp: Long
+)
+
+enum class TradingSignal {
+    STRONG_BUY,
+    BUY,
+    HOLD,
+    SELL,
+    STRONG_SELL
+}

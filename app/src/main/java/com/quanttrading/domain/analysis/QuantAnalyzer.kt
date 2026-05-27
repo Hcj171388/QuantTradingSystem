@@ -1,7 +1,6 @@
 package com.quanttrading.domain.analysis
 
 import com.quanttrading.data.model.StockData
-import com.quanttrading.data.model.StockFactor
 import com.quanttrading.data.model.TradingSignal
 import java.util.*
 
