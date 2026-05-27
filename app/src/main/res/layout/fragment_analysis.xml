@@ -36,7 +36,7 @@
             style="@style/Widget.MaterialComponents.Button" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBar"
+            android:id="@+id/analysisProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -315,7 +315,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/analysisProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
