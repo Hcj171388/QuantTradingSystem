@@ -2,40 +2,42 @@ package com.quanttrading.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayoutMediator
-import com.quanttrading.databinding.ActivityMainBinding
-import com.quanttrading.ui.fragment.AnalysisFragment
-import com.quanttrading.ui.fragment.BatchScreeningFragment
-import com.quanttrading.ui.fragment.StockSearchFragment
+import com.quanttrading.R
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
+        setContentView(R.layout.activity_main)
+        
+        val viewPager: ViewPager2 = findViewById(R.id.viewPager)
+        
+        viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 3
 
-            override fun createFragment(position: Int) = when (position) {
-                0 -> StockSearchFragment()
-                1 -> AnalysisFragment()
-                2 -> BatchScreeningFragment()
-                else -> throw IllegalStateException("Invalid position")
+            override fun createFragment(position: Int): Fragment {
+                return when (position) {
+                    0 -> {
+                        val clazz = Class.forName("com.quanttrading.ui.fragment.StockSearchFragment")
+                        clazz.newInstance() as Fragment
+                    }
+                    1 -> {
+                        val clazz = Class.forName("com.quanttrading.ui.fragment.AnalysisFragment")
+                        clazz.newInstance() as Fragment
+                    }
+                    2 -> {
+                        val clazz = Class.forName("com.quanttrading.ui.fragment.BatchScreeningFragment")
+                        clazz.newInstance() as Fragment
+                    }
+                    else -> {
+                        val clazz = Class.forName("com.quanttrading.ui.fragment.StockSearchFragment")
+                        clazz.newInstance() as Fragment
+                    }
+                }
             }
         }
-
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "股票查询"
-                1 -> "量化分析"
-                2 -> "批量筛选"
-                else -> "Unknown"
-            }
-        }.attach()
     }
 }
