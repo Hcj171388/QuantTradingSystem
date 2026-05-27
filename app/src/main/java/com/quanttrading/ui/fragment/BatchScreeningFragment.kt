@@ -14,7 +14,16 @@ class BatchScreeningFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Simple placeholder view for now
-        return inflater.inflate(R.layout.fragment_batch_screening, container, false)
+        return inflater.inflate(R.layout.fragment_stock_search, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        view.findViewById<View>(R.id.stockCodeInput)?.visibility = View.GONE
+        view.findViewById<View>(R.id.searchButton)?.visibility = View.GONE
+        view.findViewById<View>(R.id.stockInfoCard)?.visibility = View.GONE
+        view.findViewById<View>(R.id.progressBar)?.visibility = View.GONE
+        view.findViewById<View>(R.id.errorText)?.visibility = View.GONE
     }
 }
