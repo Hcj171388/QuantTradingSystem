@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -31,7 +32,7 @@ class BatchScreeningFragment : Fragment() {
     private lateinit var progressText: TextView
     private lateinit var resultCard: MaterialCardView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var progressLinear: androidx.appcompat.widget.AppCompatSeekBar
+    private lateinit var progressLinear: SeekBar
     
     private val repository = StockRepository()
     private val analyzer = QuantAnalyzer()
