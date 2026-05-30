@@ -32,8 +32,11 @@ data class SearchData(
 )
 
 data class SearchStock(
-    @SerializedName("display_name") val displayName: String,
-    @SerializedName("code") val code: String,
+    @SerializedName("f58") val displayName: String,
+    @SerializedName("f57") val code: String,
+    @SerializedName("f14") val name: String,
+    @SerializedName("f2") val price: Double,
+    @SerializedName("f3") val changePercent: Double,
     @SerializedName("market_type") val marketType: String
 )
 

@@ -37,7 +37,7 @@ class StockRepository {
         }
     }
     
-    suspend fun getMarketStockList(market: String = "m"): Result<List<SearchStock>> {
+    suspend fun getMarketStockList(): Result<List<SearchStock>> {
         return withContext(Dispatchers.IO) {
             try {
                 val allStocks = mutableListOf<SearchStock>()
@@ -45,7 +45,7 @@ class StockRepository {
                 var hasMore = true
                 
                 while (hasMore && page <= 5) {
-                    val response = ApiClient.stockApiService.getMarketStockList(market, page)
+                    val response = ApiClient.stockApiService.getMarketStockList(page)
                     val stocks = response.data?.stockList ?: emptyList()
                     if (stocks.isNotEmpty()) {
                         allStocks.addAll(stocks)
