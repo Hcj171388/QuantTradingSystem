@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         
         viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = 3
+            override fun getItemCount(): Int = 4
 
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     2 -> {
                         val clazz = Class.forName("com.quanttrading.ui.fragment.BatchScreeningFragment")
+                        clazz.newInstance() as Fragment
+                    }
+                    3 -> {
+                        val clazz = Class.forName("com.quanttrading.ui.fragment.IndustryRankingFragment")
                         clazz.newInstance() as Fragment
                     }
                     else -> {

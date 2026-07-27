@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- 第一行：股票名称 + 股票代码 + 股价 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/stockName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="股票名称"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#212121" />
+
+            <TextView
+                android:id="@+id/stockCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000000"
+                android:textSize="13sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginEnd="12dp" />
+
+            <TextView
+                android:id="@+id/stockPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥0.00"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#1976D2" />
+        </LinearLayout>
+
+        <!-- 第二行：同比营收 / 同比净利润 / 持仓占比 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="同比营收"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E" />
+
+            <TextView
+                android:id="@+id/revenueYoy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00%"
+                android:textSize="12sp"
+                android:textColor="#424242"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="同比净利"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E" />
+
+            <TextView
+                android:id="@+id/profitYoy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00%"
+                android:textSize="12sp"
+                android:textColor="#424242"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="持仓占比"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E" />
+
+            <TextView
+                android:id="@+id/holdingRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00%"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FF6F00"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
